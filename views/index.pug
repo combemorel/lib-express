@@ -1,0 +1,32 @@
+extends layouts/layoutDefault
+
+block content
+	div(class="row")
+		div(class="col-md-12")
+			h2= subTitle
+	div(class="row" id="navbar" )
+		div(class="col-md-12 d-flex justify-content-start")
+			a(href="http://localhost:3000/dashboard/login" class="btn btn-dark") Connexion
+	div(class="row")
+		div(class="col-md-12")
+			table(class="table table-bordered")
+				tbody
+					if rows && rows.length > 0 && rows.length <= 25
+						each row in rows
+							tr
+								td(class="col-md-12 d-flex justify-content-around tablerow" )= row.title
+									div(class="col-md-10 d-flex justify-content-between")
+										p(id="contentView") #{row.content}
+										a(href=`/article/${row.id}?edit=1` class="btn btn-dark d-flex align-items-center") Voir
+
+	if rows && rows.length == 25
+	div(class="row d-flex flex-row-reverses")
+		div(class="col-md-2 d-flex justify-content-between")
+			if(page === 1)
+				a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Precedent
+			else
+				a(href=`http://localhost:3000/?page=${previousPage}` class="btn btn-dark ") Précédent
+			if(maxPage === 0 )
+				a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Suivant
+			else
+				a(href=`http://localhost:3000/?page=${nextPage}` class="btn btn-dark") Suivant

@@ -1,0 +1,35 @@
+extends layouts/layout
+
+block content
+	div(class="row" id="navbar" )
+		div(class="col-md-12 d-flex justify-content-around")
+			a(href="http://localhost:3000/dashboard/login" class="btn btn-dark") Déconnexion
+			a(href="http://localhost:3000/dashboard/article" class="btn btn-dark") Création Article
+			a(href="http://localhost:3000/dashboard" class="btn btn-dark") Articles
+			a(href="http://localhost:3000/dashboard/categories" class="btn btn-dark") Catégories
+			a(href="http://localhost:3000/dashboard/login?reset='true'" class="btn btn-dark") Configuration
+	div(class="row")
+		div(class="col-md-12")
+			h2= subTitle
+	div(class="row")
+		div(class="col-md-12")
+			table(class="table table-bordered")
+				tbody
+					if rows && rows.length > 0 && rows.length <= 25
+						each row in rows
+							tr
+								td(class="col-md-12 d-flex justify-content-between tablerow")= unescape(row.title)
+									div(class="col-md-3 d-flex justify-content-between")
+										a(href=`/dashboard/article/${row.id}?edit=1` class="btn btn-dark") Editer
+										button( type="button" class="btn btn-dark" onClick=`javascript:deleteArticle(${row.id},\`${unescape(row.title)}\`)`) Supprimer
+	if rows && rows.length == 25
+	div(class="row d-flex flex-row-reverses")
+		div(class="col-md-2 d-flex justify-content-between")
+			if(page === 1)
+				a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Precedent
+			else
+				a(href=`http://localhost:3000/dashboard?page=${previousPage}` class="btn btn-dark ") Précédent
+			if(maxPage === 0 )
+				a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Suivant
+			else
+				a(href=`http://localhost:3000/dashboard?page=${nextPage}` class="btn btn-dark") Suivant

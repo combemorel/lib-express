@@ -1,0 +1,26 @@
+extends layouts/layout
+
+block content
+	div(class="row")
+		div(class="col-md-12")
+				h3 Titre de l'article
+				p #{article.title}
+		div(class="col-md-4")
+			h3 Catégories
+			div(class="row")
+			if categories && categories.length > 0
+				each category in categories
+					if category.id_article == article.id
+						span(class="badge badge-secondary" ) #{unescape(category.tag)}
+		div(class="col-md-10")
+			h3 Contenue de l'article
+			p #{article.content}
+		div(class="col-md-12")
+			div(class="row")
+				div(class="col-md-5")
+					p Date de création : #{article.date}
+				div(class="col-md-3")
+					p Auteur : #{article.author}
+
+		div(class="col-md-6 d-flex justify-content-between")
+			a(href="http://localhost:3000/" class="btn btn-dark") Retour

@@ -1,0 +1,22 @@
+extends layouts/layout
+
+block content
+	div(class="row" id="navbar" )
+		div(class="col-md-12 d-flex justify-content-around")
+			a(href="http://localhost:3000/dashboard/login" class="btn btn-dark") Déconnexion
+			a(href="http://localhost:3000/dashboard/article" class="btn btn-dark") Création Article
+			a(href="http://localhost:3000/dashboard" class="btn btn-dark") Articles
+			a(href="http://localhost:3000/dashboard/categories" class="btn btn-dark") Catégories
+			a(href="http://localhost:3000/dashboard/login?reset='true'" class="btn btn-dark") Configuration
+	div(class="row")
+		div(class="col-md-12")
+			h2= subTitle
+	div(class="row")
+		div(class="col-md-5")
+			form(action=`/dashboard/categories`, method="POST")
+				div(class="form-group")
+					label(for="tag") Nom de la catégorie
+					input(type="text", name="tag" id="tag" class="form-control" value=`${unescape(category.tag)}`)
+				div(class="col-md-6 d-flex justify-content-between")
+					a(href="http://localhost:3000/dashboard/categories" class="btn btn-dark") Annuler
+					button(type="button" class="btn btn-dark" onClick=`putCategory(${category.id})` ) Sauvegader

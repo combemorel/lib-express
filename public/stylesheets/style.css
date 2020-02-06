@@ -1,0 +1,21 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#navbar {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.badge {
+  margin: 2px;
+}
