@@ -75,9 +75,7 @@ loginRouter.put('/:id', (req, res, next) => {
 		res.end();
 		return;
 	}
-	console.log("password => " + pwd)
 	bcrypt.hash(pwd, saltRounds).then(function (hash) {
-		console.log("password bcrypt => " + hash)
 		const request = `UPDATE user SET password = '${hash}' WHERE id=${id} AND login='admin';`
 
 		mySqlConnection.query(

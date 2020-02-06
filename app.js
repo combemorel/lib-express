@@ -4,7 +4,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mysql from 'mysql';
-import bodyParser from 'body-parser';
+import bodyParser from 'body-parser'
 
 import { indexRouter } from './routes/index.js';
 import { dashboardRouter } from './routes/dashboardArticle.js';
@@ -17,6 +17,11 @@ const app = express();
 // parse application/json
 app.use(bodyParser.json());
 
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+      res.status(500).send(err.message);
+  }
+});
 // view engine setup
 const __dirname = path.resolve(path.dirname(''));
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/dashboard/article', articleRouter);
-app.use('/dashboard/login', loginRouter);
+app.use('/login', loginRouter);
 app.use('/dashboard/categories', dashbordCategoryRouter);
 
 // catch 404 and forward to error handler
@@ -49,7 +54,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 export const mySqlConnection = mysql.createConnection({
   host: 'localhost',

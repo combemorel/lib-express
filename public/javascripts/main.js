@@ -1,3 +1,4 @@
+
 window.onload = function(){
 	tinymce.init({
         selector:'textarea',
@@ -50,6 +51,7 @@ function validDelete(title) {
 function deleteArticle(id, title) {
 	const valid = validDelete(title);
 	if(valid){
+
 		const deleteMethod = {
 			method: 'DELETE', // Method itself
 			headers: {
@@ -122,15 +124,16 @@ function login() {
 		login: document.getElementById('login').value,
 		pwd: document.getElementById('pwd').value,
 	}
+
 	const postMethod = {
 		method: 'POST', // Method itself
 		headers: {
-			'Content-type': 'application/json; charset=UTF-8' // Indicates the content
+			'Content-type': `application/json; charset=UTF-8`,
 		},
 		body: JSON.stringify(data), // We send data in JSON format
 	}
 
-	fetch(`/dashboard/login`, postMethod)
+	fetch(`/login`, postMethod)
 		.then(response => {
 			if (response.status == 400) {
 				document.getElementById('error').textContent = 'Veuillez renseigner vos Identifiants'
@@ -167,5 +170,4 @@ function loginChange(id) {
 		.then(data => console.log(data)) // Manipulate the data retrieved back, if we want to do something with it
 		.catch(err => console.log(err)) // Do something with the error
 }
-
 
