@@ -1,4 +1,4 @@
-extends layouts/layout
+extends layouts/layoutDefault
 
 block content
 	div(class="row")
@@ -12,15 +12,13 @@ block content
 				each category in categories
 					if category.id_article == article.id
 						span(class="badge badge-secondary" ) #{unescape(category.tag)}
-		div(class="col-md-10")
+		div(class="col-md-10" id='contentArticle')
 			h3 Contenue de l'article
 			p #{article.content}
 		div(class="col-md-12")
 			div(class="row")
-				div(class="col-md-5")
+				div(class="col-md-6")
+					p(id="author") Auteur : #{article.author}
 					p Date de création : #{article.date}
-				div(class="col-md-3")
-					p Auteur : #{article.author}
-
 		div(class="col-md-6 d-flex justify-content-between")
 			a(href="http://localhost:3000/" class="btn btn-dark") Retour

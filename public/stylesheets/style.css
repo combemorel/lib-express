@@ -1,5 +1,6 @@
 body {
   padding: 50px;
+  padding-top: 20px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -18,4 +19,15 @@ a {
 
 .badge {
   margin: 2px;
+}
+#contentArticle {
+
+  margin-top: 10px;
+}
+#author {
+  margin-bottom: 5px;
+}
+
+#navbar {
+  margin-top: 30px;
 }

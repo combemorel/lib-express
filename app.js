@@ -5,11 +5,12 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mysql from 'mysql';
 import bodyParser from 'body-parser'
+import { authenticated } from './functions/authenticate.js'
 
 import { indexRouter } from './routes/index.js';
-import { dashboardRouter } from './routes/dashboardArticle.js';
+import { articlesRouter } from './routes/articles.js';
 import { articleRouter } from './routes/article.js';
-import { dashbordCategoryRouter } from './routes/category.js';
+import { categoriesRouter } from './routes/categories.js';
 import { loginRouter } from './routes/login.js';
 
 const app = express();
@@ -17,11 +18,6 @@ const app = express();
 // parse application/json
 app.use(bodyParser.json());
 
-app.use((err, req, res, next) => {
-  if (err.name === 'UnauthorizedError') {
-      res.status(500).send(err.message);
-  }
-});
 // view engine setup
 const __dirname = path.resolve(path.dirname(''));
 app.set('views', path.join(__dirname, 'views'));
@@ -34,10 +30,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/dashboard', dashboardRouter);
-app.use('/dashboard/article', articleRouter);
+app.use('/dashboard', authenticated, articlesRouter);
+app.use('/dashboard/article', authenticated, articleRouter);
 app.use('/login', loginRouter);
-app.use('/dashboard/categories', dashbordCategoryRouter);
+app.use('/dashboard/categories', authenticated, categoriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

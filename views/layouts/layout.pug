@@ -10,5 +10,7 @@ html
     div(class="row")
       div(class="col-sm-12")
         h1(class="text-center") DASHBOARD - #{title}
+        if subTitle != 'Connexion'
+          include ../includes/nav.pug
     block content
 

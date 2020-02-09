@@ -1,3 +1,4 @@
+import dateformat from 'dateformat'
 
 function sanitizedText(str) {
 	const patt = /\<.*?\>/g;
@@ -15,16 +16,13 @@ export const formatFrontArticle = article => {
 		date,
 		author
 	} = article;
-	const datetmp = new Date(date)
-	const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour:'2-digit' ,minute:'2-digit' , second:'2-digit'  };
-	// const dateFormat = datetmp.toLocaleDateString("fr-FR","weekday", "year", "month", "day", "hour", "minute")
-	const dateFormat = datetmp.toLocaleString("fr-FR",options)
+
 	return {
 		id,
 		title: unescape(title),
 		content: sanitizedText(unescape(content)),
 		id_Author: id_Author,
-		date: dateFormat,
+		date: dateformat(date,"dd/mm/yyyy HH:MM:ss"),
 		author: author.charAt(0).toUpperCase()+author.substring(1).toLowerCase()
 	};
 };
@@ -46,3 +44,7 @@ export const formatFrontArticleTab = article => {
 	};
 };
 
+export const formatArticle = article => {
+	const { id, title, content, id_user, date } = article;
+	return { id, title: unescape(title), content: unescape(content), author: id_user, date };
+};

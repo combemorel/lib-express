@@ -1,4 +1,3 @@
-
 window.onload = function(){
 	tinymce.init({
         selector:'textarea',
@@ -119,7 +118,6 @@ function putCategory(id) {
 }
 
 function login() {
-	console.log('post')
 	const data = {
 		login: document.getElementById('login').value,
 		pwd: document.getElementById('pwd').value,
@@ -139,12 +137,13 @@ function login() {
 				document.getElementById('error').textContent = 'Veuillez renseigner vos Identifiants'
 			} else if (response.status == 401) {
 				document.getElementById('error').textContent = 'Vos Identifiants sont Incorrect'
-			} else if (response.status == 200) {
+			}else if (response.status == 200) {
 				window.location.href = "http://localhost:3000/dashboard"
 			}
 		})
-		.then(data => console.log(data)) // Manipulate the data retrieved back, if we want to do something with it
-		.catch(err => console.log(err)) // Do something with the error
+		.catch(err => {
+
+		}) // Do something with the error
 }
 
 function loginChange(id) {
@@ -159,7 +158,7 @@ function loginChange(id) {
 		body: JSON.stringify(data), // We send data in JSON format
 	}
 
-	fetch(`/dashboard/login/${id}`, putMethod)
+	fetch(`/login/${id}`, putMethod)
 		.then(response => {
 			if (response.status == 400) {
 				document.getElementById('error').textContent = 'Mot de Passe Invalid'
