@@ -74,7 +74,7 @@ articleRouter.put('/:id', (req, res, next) => {
 
 /* DELETE Delete Article . */
 articleRouter.delete('/:id', function (req, res, next) {
-  const id = parseINt(req.params.id);
+  const id = parseInt(req.params.id);
   mySqlConnection.query(`DELETE from article where id=${id};`, (err, rows, fields) => {
     if (err) throw err;
     if (rows.length === 0) {

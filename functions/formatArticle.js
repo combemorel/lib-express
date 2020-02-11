@@ -40,7 +40,8 @@ export const formatFrontArticleTab = article => {
 		title: unescape(title),
 		content: sanitizedText(unescape(content)).substring(0, 200),
 		author: id_user,
-		date
+		date: dateformat(date,"dd/mm/yyyy HH:MM:ss"),
+		author: author.charAt(0).toUpperCase()+author.substring(1).toLowerCase()
 	};
 };
 
