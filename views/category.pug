@@ -6,10 +6,16 @@ block content
 			h2= subTitle
 	div(class="row")
 		div(class="col-md-5")
-			form(action=`/dashboard/categories`, method="POST")
+			form(action=`/dashboard/category`, method="POST")
 				div(class="form-group")
 					label(for="tag") Nom de la catégorie
-					input(type="text", name="tag" id="tag" class="form-control" value=`${unescape(category.tag)}`)
+					if category
+						input(type="text", name="tag" id="tag" class="form-control" value=`${unescape(category.tag)}`)
+					else
+						input(type="text", name="tag" id="tag" class="form-control" )
 				div(class="col-md-6 d-flex justify-content-between")
 					a(href="http://localhost:3000/dashboard/categories" class="btn btn-dark") Annuler
-					button(type="button" class="btn btn-dark" onClick=`putCategory(${category.id})` ) Sauvegader
+					if category
+						button(type="button" class="btn btn-dark" onClick=`putCategory(${category.id})` ) Sauvegader
+					else
+						button(type="submit" class="btn btn-dark") Créer

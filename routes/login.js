@@ -28,7 +28,6 @@ loginRouter.get('/change', authenticated, function (req, res, next) {
 
 /* PUT Update Login */
 loginRouter.put('/:id',authenticated , (req, res, next) => {
-	const saltRounds = 10;
 	const id = parseInt(req.params.id);
 	const { pwd } = req.body;
 	if (!pwd) {
@@ -36,7 +35,7 @@ loginRouter.put('/:id',authenticated , (req, res, next) => {
 		res.end();
 		return;
 	}
-	bcrypt.hash(pwd, saltRounds).then(function (hash) {
+	bcrypt.hash(pwd, 10).then(function (hash) {
 		const request = `UPDATE user SET password = '${hash}' WHERE id=${id} AND login='admin';`
 
 		mySqlConnection.query(request, (err, rows, fields) => {
@@ -60,7 +59,7 @@ loginRouter.post('/', function (req, res, next) {
     res.sendStatus(400);
 	}
   // Requete SQL
-  const request = `SELECT login, password from user where login='admin' AND id=2;`;
+  const request = `SELECT login, password from user where login='${login}' AND id=2;`;
   // Envoye de la Requete SQL
   mySqlConnection.query(request, (err, rows, fields) => {
     if (err) throw err; // Si requete est fausse
@@ -70,7 +69,7 @@ loginRouter.post('/', function (req, res, next) {
 			bcrypt.compare(pwd, rows[0].password).then(function(result) {
 				if(result) {
           let privateKey = fs.readFileSync('./private.pem', 'utf8');
-          let token = jwt.sign({ "body": "stuff" }, privateKey, { algorithm: 'HS256'});
+          let token = jwt.sign({ "user": rows[0].login }, privateKey, { algorithm: 'HS256'});
 
           res.cookie('auth', token,{ maxAge: 900000 });
 					res.sendStatus(200);
@@ -81,5 +80,3 @@ loginRouter.post('/', function (req, res, next) {
     }
 	});
 });
-
-

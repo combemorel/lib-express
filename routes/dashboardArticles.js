@@ -1,10 +1,10 @@
 import express from 'express';
 import { mySqlConnection } from '../app.js';
 
-export const articlesRouter = express.Router();
+export const dashboardArticleRouter = express.Router();
 
 /* GET All Articles. */
-articlesRouter.get('/', function(req, res, next) {
+dashboardArticleRouter.get('/', function(req, res, next) {
   const limit = 25;// Limit du nombre d'article afficher par page à 25
   let page = parseInt(req.query.page); // Parametre inserer apres un "?" dans l'URL
   let offset; // Variables de décalage requete SQL
@@ -29,7 +29,7 @@ articlesRouter.get('/', function(req, res, next) {
       res.render('404');
     } else { // sinon
       const maxPage = rows[1].length; // Constante pour vérifier si il y a des articles a afficher
-      res.render('articles', { title: 'LibExpress', subTitle: 'Listes Articles', rows : rows[0], page : page , previousPage : previousPage , nextPage: nextPage, maxPage: maxPage});
+      res.render('dashboard', { title: 'LibExpress', subTitle: 'Listes Articles', rows : rows[0], page : page , previousPage : previousPage , nextPage: nextPage, maxPage: maxPage});
     }
   });
 });

@@ -6,6 +6,9 @@ block content
 			h2= subTitle
 	div(class="row")
 		div(class="col-md-12")
+			a(href="http://localhost:3000/dashboard/article" class="btn btn-dark" id="create") Création Article
+	div(class="row")
+		div(class="col-md-12")
 			table(class="table table-bordered")
 				tbody
 					if rows && rows.length > 0 && rows.length <= 25

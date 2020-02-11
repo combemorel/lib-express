@@ -6,6 +6,9 @@ block content
 			h2= subTitle
 	div(class="row")
 		div(class="col-md-12")
+			a(href="http://localhost:3000/dashboard/category" class="btn btn-dark" id="create") Création Catégorie
+	div(class="row")
+		div(class="col-md-12")
 			table(class="table table-bordered")
 				tbody
 					if rows && rows.length > 0 && rows.length <= 25
@@ -13,7 +16,7 @@ block content
 							tr
 								td(class="col-md-12 d-flex justify-content-between tablerow" )= unescape(row.tag)
 									div(class="col-md-3 d-flex justify-content-between")
-										a(href=`http://localhost:3000/dashboard/categories/${row.id}` class="btn btn-dark") Editer
+										a(href=`http://localhost:3000/dashboard/category/${row.id}` class="btn btn-dark") Editer
 										a(href="" class="btn btn-dark" onClick=`javascript:deleteCategory(${row.id},\`${unescape(row.tag)}\`)`) Supprimer
 	if rows && rows.length == 25
 	div(class="row d-flex flex-row-reverses")
@@ -26,14 +29,3 @@ block content
 				a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Suivant
 			else
 				a(href=`http://localhost:3000/dashboard/categories?page=${nextPage}` class="btn btn-dark") Suivant
-	div(class="row")
-		div(class="col-md-12")
-			h2 Création d'une Catégorie
-	div(class="row")
-		div(class="col-md-5")
-			form(action="/dashboard/categories", method="POST")
-				div(class="form-group")
-					label(for="tag") Nom de la catégorie
-					input(type="text", name="tag" class="form-control")
-				div(class="col-md-5 d-flex justify-content-between")
-					button(type="submit" class="btn btn-dark") Créer

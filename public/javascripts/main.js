@@ -83,7 +83,7 @@ function deleteCategory(id, title) {
 			 'Content-type': 'application/json; charset=UTF-8' // Indicates the content
 			},
 		}
-		fetch(`/dashboard/categories/${id}`, deleteMethod)
+		fetch(`/dashboard/category/${id}`, deleteMethod)
 			.then(response => {
 				if(response.status == 200){
 				   window.location.href="http://localhost:3000/dashboard/categories"
@@ -107,7 +107,7 @@ function putCategory(id) {
 		body: JSON.stringify(data), // We send data in JSON format
 	}
 
-	fetch(`/dashboard/categories/${id}`, putMethod)
+	fetch(`/dashboard/category/${id}`, putMethod)
 	 	.then(response => {
 			if(response.status == 200){
 			   window.location.href="http://localhost:3000/dashboard/categories"
@@ -116,6 +116,8 @@ function putCategory(id) {
 	 	.then(data => console.log(data)) // Manipulate the data retrieved back, if we want to do something with it
 	 	.catch(err => console.log(err)) // Do something with the error
 }
+
+
 
 function login() {
 	const data = {
