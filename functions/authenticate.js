@@ -1,14 +1,13 @@
 import jwt from 'jsonwebtoken';
-import fs from 'fs'
+
 export function authenticated(req, res, next) {
     if (req.headers.cookie !== undefined ) {
         // retrieve the authorization header and parse out the
         // JWT using the split function
         let token = req.headers.cookie.split("=")[1];
-        let privateKey = fs.readFileSync('./private.pem', 'utf8');
         // Here we validate that the JSON Web Token is valid and has been
         // created using the same private pass phrase
-        jwt.verify(token, privateKey, { algorithm: "HS256" }, (err, user) => {
+        jwt.verify(token, 'hjghroegrjioghreog,;://.,k,kgrgsgspoi', { algorithm: "HS256" }, (err) => {
             // if there has been an error...
             if (err) {
                 // shut them out!
@@ -27,4 +26,4 @@ export function authenticated(req, res, next) {
         res.status(500).json({ error: "Not Authorized" });
         throw new Error("Not Authorized");
     }
-  }
+}

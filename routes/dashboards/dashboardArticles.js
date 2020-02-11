@@ -1,5 +1,5 @@
 import express from 'express';
-import { mySqlConnection } from '../app.js';
+import { mySqlConnection } from '../../app.js';
 
 export const dashboardArticleRouter = express.Router();
 
@@ -29,7 +29,7 @@ dashboardArticleRouter.get('/', function(req, res, next) {
       res.render('404');
     } else { // sinon
       const maxPage = rows[1].length; // Constante pour vérifier si il y a des articles a afficher
-      res.render('dashboard', { title: 'LibExpress', subTitle: 'Listes Articles', rows : rows[0], page : page , previousPage : previousPage , nextPage: nextPage, maxPage: maxPage});
+      res.render('dashboards/dashboardArticles', { title: 'LibExpress', subTitle: 'Listes Articles', rows : rows[0], page : page , previousPage : previousPage , nextPage: nextPage, maxPage: maxPage});
     }
   });
 });

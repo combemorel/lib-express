@@ -8,9 +8,9 @@ import bodyParser from 'body-parser'
 import { authenticated } from './functions/authenticate.js'
 
 import { indexRouter } from './routes/index.js';
-import { dashboardArticleRouter } from './routes/dashboardArticles.js';
+import { dashboardArticleRouter } from './routes/dashboards/dashboardArticles.js';
 import { articleRouter } from './routes/article.js';
-import { dashboardCategoriesRouter } from './routes/dashboardCategories.js';
+import { dashboardCategoriesRouter } from './routes/dashboards/dashboardCategories.js';
 import { categoryRouter } from './routes/category.js';
 import { loginRouter } from './routes/login.js';
 
@@ -31,9 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
 app.use('/dashboard', authenticated, dashboardArticleRouter);
 app.use('/dashboard/article', authenticated, articleRouter);
-app.use('/login', loginRouter);
 app.use('/dashboard/categories', authenticated, dashboardCategoriesRouter);
 app.use('/dashboard/category', authenticated, categoryRouter);
 
