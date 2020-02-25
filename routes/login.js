@@ -4,6 +4,7 @@ import { mySqlConnection } from '../app.js';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import { authenticated } from '../functions/authenticate.js';
+import createHttpError from 'http-errors';
 
 export const loginRouter = express.Router();
 
@@ -32,7 +33,8 @@ loginRouter.get('/change', authenticated, function (req, res, next) {
 loginRouter.post('/', function (req, res, next) {
 	const { login, pwd } = req.body; //Récupération des donnees du formulaire
   if (!login || !pwd) { // Si donnees vides
-    res.sendStatus(400);
+    next(createError(400))
+    // res.sendStatus(400);
   }
   
   // Requete SQL
@@ -49,7 +51,7 @@ loginRouter.post('/', function (req, res, next) {
       next();
     }
 	});
-}, (req,res)=>{
+}, (req,res,next)=>{
   bcrypt.compare(req.pwd,req.encodedPwd ).then( result => {
     if(result) {
       let token = jwt.sign({ "user": req.login }, 'hjghroegrjioghreog,;://.,k,kgrgsgspoi', { algorithm: 'HS256'});
@@ -58,7 +60,8 @@ loginRouter.post('/', function (req, res, next) {
       res.sendStatus(200);
     }
     else{
-      res.sendStatus(401);
+      next(createError(401))
+      // res.sendStatus(401);
     }
   });
 } );
