@@ -42,7 +42,7 @@ loginRouter.post('/', function (req, res, next) {
   mySqlConnection.query(request, (err, rows, fields) => {
     if (err) throw err; // Si requete est fausse
     if (rows.length === 0) { // Si la requete ne renvoye rien
-      res.sendStatus(400);
+      res.sendStatus(401);
     } else { // Sinon
       req.pwd = pwd;
       req.login = login;
@@ -62,7 +62,7 @@ loginRouter.post('/', function (req, res, next) {
       res.sendStatus(401);
     }
   });
-} );
+});
 
 
 /* ----------------------- PUT Update Login ----------------------- */
