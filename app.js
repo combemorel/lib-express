@@ -37,6 +37,7 @@ app.use('/dashboard/article', authenticated, articleRouter);
 app.use('/dashboard/categories', authenticated, dashboardCategoriesRouter);
 app.use('/dashboard/category', authenticated, categoryRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

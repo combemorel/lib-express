@@ -161,7 +161,7 @@ function loginChange(id) {
 		},
 		body: JSON.stringify(data), // We send data in JSON format
 	}
-
+	console.log('data => '+data.pwd)
 	fetch(`/login/${id}`, putMethod)
 		.then(response => {
 			if (response.status == 400) {
@@ -170,7 +170,6 @@ function loginChange(id) {
 				window.location.href = "http://localhost:3000/dashboard"
 			}
 		})
-		.then(data => console.log(data)) // Manipulate the data retrieved back, if we want to do something with it
 		.catch(err => console.log(err)) // Do something with the error
 }
 

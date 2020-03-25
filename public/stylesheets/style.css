@@ -53,6 +53,9 @@ body {
 a{
   margin:1px;
 }
+.activeCat {
+  border: #333 solid 2px;
+}
 
 /*
  * Sidebar

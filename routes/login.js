@@ -33,8 +33,7 @@ loginRouter.get('/change', authenticated, function (req, res, next) {
 loginRouter.post('/', function (req, res, next) {
 	const { login, pwd } = req.body; //Récupération des donnees du formulaire
   if (!login || !pwd) { // Si donnees vides
-    next(createError(400))
-    // res.sendStatus(400);
+    res.sendStatus(400);
   }
   
   // Requete SQL
@@ -60,8 +59,7 @@ loginRouter.post('/', function (req, res, next) {
       res.sendStatus(200);
     }
     else{
-      next(createError(401))
-      // res.sendStatus(401);
+      res.sendStatus(401);
     }
   });
 } );
@@ -69,19 +67,23 @@ loginRouter.post('/', function (req, res, next) {
 
 /* ----------------------- PUT Update Login ----------------------- */
 loginRouter.put('/:id',authenticated , (req, res, next) => {
-	const id = parseInt(req.params.id);
-	const { pwd } = req.body;
+  const id = parseInt(req.params.id);
+  const { pwd } = req.body;
 	if (!pwd) {
 		res.status = 400;
 		res.end();
 		return;
   }
+
   req.pwd = pwd;
+  req.id = id;
   next();
 }, (req,res)=>{
-  bcrypt.hash(pwd, 10).then(function (hash) {
-		const request = `UPDATE user SET password = '${hash}' WHERE id=${id} AND login='admin';`
 
+  bcrypt.hash(pwd, 10).then(function (hash) {
+    console.log(pwd)
+		const request = `UPDATE user SET password = '${hash}' WHERE id=${id} AND login='admin';`
+    console.log('change')
 		mySqlConnection.query(request, (err, rows, fields) => {
       if (err) throw err;
       res.sendStatus(200);
