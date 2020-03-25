@@ -81,9 +81,7 @@ loginRouter.put('/:id',authenticated , (req, res, next) => {
 }, (req,res)=>{
 
   bcrypt.hash(pwd, 10).then(function (hash) {
-    console.log(pwd)
 		const request = `UPDATE user SET password = '${hash}' WHERE id=${id} AND login='admin';`
-    console.log('change')
 		mySqlConnection.query(request, (err, rows, fields) => {
       if (err) throw err;
       res.sendStatus(200);

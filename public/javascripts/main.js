@@ -161,7 +161,6 @@ function loginChange(id) {
 		},
 		body: JSON.stringify(data), // We send data in JSON format
 	}
-	console.log('data => '+data.pwd)
 	fetch(`/login/${id}`, putMethod)
 		.then(response => {
 			if (response.status == 400) {
