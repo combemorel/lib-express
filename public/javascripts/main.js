@@ -120,7 +120,6 @@ function putCategory(id) {
 
 
 function login() {
-	console.log('test')
 	const data = {
 		login: document.getElementById('login').value,
 		pwd: document.getElementById('pwd').value,

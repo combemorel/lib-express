@@ -35,7 +35,6 @@ loginRouter.post('/', function (req, res, next) {
   if (!login || !pwd) { // Si donnees vides
     res.sendStatus(400);
   }
-  
   // Requete SQL
   const request = `SELECT login, password from user where login='${login}' AND id=2;`;
   // Envoye de la Requete SQL
@@ -66,7 +65,7 @@ loginRouter.post('/', function (req, res, next) {
 
 
 /* ----------------------- PUT Update Login ----------------------- */
-loginRouter.put('/:id',authenticated , (req, res, next) => {
+loginRouter.put('/:id', authenticated, (req, res, next) => {
   const id = parseInt(req.params.id);
   const { pwd } = req.body;
 	if (!pwd) {
@@ -79,8 +78,9 @@ loginRouter.put('/:id',authenticated , (req, res, next) => {
   req.id = id;
   next();
 }, (req,res)=>{
-
-  bcrypt.hash(pwd, 10).then(function (hash) {
+  const pwd = req.pwd;
+  const id  = req.id;
+  bcrypt.hash(pwd, 10).then( (hash) => {
 		const request = `UPDATE user SET password = '${hash}' WHERE id=${id} AND login='admin';`
 		mySqlConnection.query(request, (err, rows, fields) => {
       if (err) throw err;
