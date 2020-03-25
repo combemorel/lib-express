@@ -120,6 +120,7 @@ function putCategory(id) {
 
 
 function login() {
+	console.log('test')
 	const data = {
 		login: document.getElementById('login').value,
 		pwd: document.getElementById('pwd').value,
@@ -140,6 +141,7 @@ function login() {
 			} else if (response.status == 401) {
 				document.getElementById('error').textContent = 'Vos Identifiants sont Incorrect'
 			}else if (response.status == 200) {
+				console.log('ok');
 				window.location.href = "http://localhost:3000/dashboard"
 			}
 		})

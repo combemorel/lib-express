@@ -1,31 +1,36 @@
 extends ../layouts/layout
 
 block content
-	div(class="row")
-		div(class="col-md-12")
-			h2= subTitle
-	div(class="row")
+	main(role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4")
+		h2= subTitle
 		div(class="col-md-12")
 			a(href="http://localhost:3000/dashboard/article" class="btn btn-dark" id="create") Création Article
-	div(class="row")
-		div(class="col-md-12")
-			table(class="table table-bordered")
-				tbody
-					if rows && rows.length > 0 && rows.length <= 25
+		div(class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom")
+			div(class="table-responsive")
+				table(class="table table-striped table-sm")
+					thead
+						tr
+							th(class="text-center") Titre
+							th(class="text-center") Contenue
+							th(class="text-center") Actions
+					tbody
+						if rows && rows.length > 0 && rows.length <= 25
 						each row in rows
 							tr
-								td(class="col-md-12 d-flex justify-content-between tablerow")= unescape(row.title)
-									div(class="col-md-3 d-flex justify-content-between")
-										a(href=`/dashboard/article/${row.id}` class="btn btn-dark") Editer
-										button( type="button" class="btn btn-dark" onClick=`javascript:deleteArticle(${row.id},\`${unescape(row.title)}\`)`) Supprimer
-	if rows && rows.length == 25
-	div(class="row d-flex flex-row-reverses")
-		div(class="col-md-2 d-flex justify-content-between")
-			if(page === 1)
-				a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Precedent
-			else
-				a(href=`http://localhost:3000/dashboard?page=${previousPage}` class="btn btn-dark ") Précédent
-			if(maxPage === 0 )
-				a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Suivant
-			else
-				a(href=`http://localhost:3000/dashboard?page=${nextPage}` class="btn btn-dark") Suivant
+								td(class="tablerow d-flex justify-content-center")= unescape(row.title)
+								td(class="tablerow" )
+									p(id="contentView" class="d-flex justify-content-center") #{row.content}
+								td(class="tablerow d-flex align-items-center justify-content-center")
+									a(href=`/dashboard/article/${row.id}` class="btn btn-dark") Editer
+									button( type="button" class="btn btn-dark" onClick=`javascript:deleteArticle(${row.id},\`${unescape(row.title)}\`)`) Supprimer
+		if rows && rows.length == 25
+		div(class="row d-flex flex-row-reverses")
+			div(class="col-md-2 d-flex justify-content-between")
+				if(page === 1)
+					a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Precedent
+				else
+					a(href=`http://localhost:3000/dashboard?page=${previousPage}` class="btn btn-dark ") Précédent
+				if( count < page * limit )
+					a(href="http://" class="btn btn-dark disabled" aria_disabled='true') Suivant
+				else
+					a(href=`http://localhost:3000/dashboard?page=${nextPage}` class="btn btn-dark") Suivant

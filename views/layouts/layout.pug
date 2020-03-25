@@ -2,15 +2,33 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
     include bootstrap.pug
+    link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin")
     script(src="/javascripts/main.js")
   body
-    div(class="row")
-      div(class="col-sm-12")
-        h1(class="text-center") DASHBOARD - #{title}
-        if subTitle != 'Connexion'
-          include ../includes/nav.pug
-    block content
+    nav(class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow")
+      a(class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://localhost:3000/") = #{title}
+      ul(class="navbar-nav px-3")
+        li(class="nav-item text-nowrap")
+          a(class="nav-link" href="http://localhost:3000/login/revoked") Sign Out
+    div(class="container-fluid")
+      div(class="row")
+        nav(class="col-md-2 d-none d-md-block bg-light sidebar")
+          div(class="sidebar-sticky")
+            ul(class="nav flex-column")
+              if subTitle != 'Connexion'
+                li(class="nav-item")
+                  a(class="nav-link active" href="http://localhost:3000/dashboard")
+                    span(data-feather="home") Articles
+                    span(class="sr-only") (current)
+                li(class="nav-item")
+                  a(class="nav-link active" href="http://localhost:3000/dashboard/categories")
+                    span(data-feather="home") Catégories
+                    span(class="sr-only") (current)
+                li(class="nav-item")
+                  a(class="nav-link active" href="http://localhost:3000/login/change")
+                    span(data-feather="home") Configuration
+                    span(class="sr-only") (current)
+        block content
 

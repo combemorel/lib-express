@@ -1,29 +1,30 @@
 extends layouts/layout
 
 block content
-	div(class="row")
-		div(class="col-md-12")
-			h2= subTitle
-	div(class="row")
-		div(class="col-md-12")
-			p(id="error")
-	div(class="row")
-		div(class="col-md-5")
-			div(class="form-group")
-				label(for="login") Identifiant
-				if user
-					p= user.login
-				else
-					input(type="text", name="login" id="login" class="form-control")
-			div(class="form-group")
-				if user
-					label(for="pwd") Nouveau Mot de Passe
-				else
-					label(for="pwd") Mot de Passe
-				input(type="password", name="pwd" id="pwd" class="form-control")
-			div(class="col-md-6 d-flex justify-content-between")
-				button(class="btn btn-dark" onClick=`window.location.href="http://localhost:3000"` ) Annuler
-				if user
-					button(type="button" class="btn btn-dark" onClick=`javascript:loginChange(${user.id})`) Enregistrer
-				else
-					button(type="button" class="btn btn-dark" onClick=`javascript:login()`) Valider
+	main(role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4")
+		div(class="row")
+			div(class="col-md-12")
+				h2= subTitle
+		div(class="row")
+			div(class="col-md-12")
+				p(id="error")
+		div(class="row")
+			div(class="col-md-5")
+				div(class="form-group")
+					label(for="login") Identifiant
+					if user
+						p= user.login
+					else
+						input(type="text", name="login" id="login" class="form-control")
+				div(class="form-group")
+					if user
+						label(for="pwd") Nouveau Mot de Passe
+					else
+						label(for="pwd") Mot de Passe
+					input(type="password", name="pwd" id="pwd" class="form-control")
+				div(class="col-md-6 d-flex justify-content-between")
+					button(class="btn btn-dark" onClick=`window.location.href="http://localhost:3000/dashboard"` ) Annuler
+					if user
+						button(type="button" class="btn btn-dark" onClick=`javascript:loginChange(${user.id})`) Enregistrer
+					else
+						button(type="button" class="btn btn-dark" onClick=`javascript:login()`) Valider

@@ -27,6 +27,7 @@ export const formatFrontArticle = article => {
 	};
 };
 
+
 export const formatFrontArticleTab = article => {
 	const {
 		id,
@@ -38,14 +39,18 @@ export const formatFrontArticleTab = article => {
 	return {
 		id,
 		title: unescape(title),
-		content: sanitizedText(unescape(content)).substring(0, 200),
+		content: sanitizedText(unescape(content)).substring(0, 200)+ ' ...',
 		author: id_user,
-		date: dateformat(date,"dd/mm/yyyy HH:MM:ss"),
-		author: author.charAt(0).toUpperCase()+author.substring(1).toLowerCase()
+		date: dateformat(date,"dd/mm/yyyy HH:MM:ss")
 	};
 };
 
 export const formatArticle = article => {
 	const { id, title, content, id_user, date } = article;
-	return { id, title: unescape(title), content: unescape(content), author: id_user, date };
+	return { id, title: unescape(title), content: sanitizedText(unescape(content)), author: id_user, date };
+};
+
+export const formatArticleTab = article => {
+	const { id, title, content, id_user, date } = article;
+	return { id, title: unescape(title), content: sanitizedText(unescape(content)).substring(0, 200)+ ' ...', author: id_user, date };
 };
