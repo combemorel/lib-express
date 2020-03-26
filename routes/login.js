@@ -2,9 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import { mySqlConnection } from '../app.js';
 import jwt from 'jsonwebtoken';
-import fs from 'fs';
 import { authenticated } from '../functions/authenticate.js';
-import createHttpError from 'http-errors';
 
 export const loginRouter = express.Router();
 
@@ -71,7 +69,7 @@ loginRouter.put('/:id', authenticated, (req, res, next) => {
   const { pwd } = req.body;
 	if (!pwd) {
 		res.sendStatus(400);
-		
+
   }else {
     req.pwd = pwd;
     req.id = id;

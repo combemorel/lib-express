@@ -25,7 +25,7 @@ categoryRouter.post('/', (req, res, next) => {
 categoryRouter.get('/:id', function(req, res, next) {
   const id = req.params.id
 
-  mySqlConnection.query(`SELECT * from category where id= ${id};`, (err, rows, fields) => {
+  mySqlConnection.query(`SELECT * from category where id=${id};`, (err, rows, fields) => {
     if (err) throw err;
     if (rows[0].length === 0) {
         res.render('204');
@@ -42,7 +42,7 @@ categoryRouter.put('/:id', (req, res, next) => {
   if (!tag) {
     res.sendStatus(400);
   }else {
-    mySqlConnection.query( `UPDATE category SET tag = '${escape(tag)}' WHERE id = ${id};`, (err, rows, fields) => {
+    mySqlConnection.query( `UPDATE category SET tag ='${escape(tag)}' WHERE id =${id};`, (err, rows, fields) => {
       if (err) throw err;
       res.sendStatus(200);
     });

@@ -152,7 +152,7 @@ function login() {
 			}
 		})
 		.catch(err => {
-
+			console.log(err)
 		}) // Do something with the error
 }
 
