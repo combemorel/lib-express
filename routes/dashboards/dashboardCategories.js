@@ -24,7 +24,7 @@ dashboardCategoriesRouter.get('/', function(req, res, next) {
   mySqlConnection.query(request, [1, 2], (err, rows, fields) => {
     if (err) throw err;
     if (rows[0].length === 0) {
-      res.render('404');
+      res.render('204');
     } else {
       const maxPage = rows[1].length;
       res.render('dashboards/dashboardCategories', { title: 'LibExpress', subTitle: 'Listes Categories', rows : rows[0], page : page , previousPage : previousPage , nextPage: nextPage, maxPage: maxPage});

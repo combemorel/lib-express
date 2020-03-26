@@ -1,9 +1,9 @@
 import express from 'express';
+import createError from 'http-errors';
 import { mySqlConnection } from '../app.js';
 import { formatFrontArticle, formatFrontArticleTab } from '../functions/formatArticle.js';
 
 export const indexRouter = express.Router();
-
 
 /* GET home page. */
 indexRouter.get('/', function(req, res, next) {
@@ -25,7 +25,7 @@ indexRouter.get('/', function(req, res, next) {
   mySqlConnection.query(request, [1, 2, 3], (err, rows, fields) => {
     if (err) throw err;
     if (rows[0].length === 0) {
-      res.render('404');
+      res.render('204');
     } else {
       const count = rows[1][0].count;
       const articles = [];
@@ -54,7 +54,7 @@ indexRouter.get('/article/:id', function(req, res, next) {
   mySqlConnection.query(request, [1,2], (err, rows, fields) => {
     if (err) throw err;
     if (rows[0].length === 0) {
-      res.render('404');
+      res.render('204');
     } else {
       res.render(`articleView`, { title: 'LibExpress', subTitle: 'Article', article: formatFrontArticle(rows[0][0]), categories: rows[1],});
     }
@@ -83,7 +83,6 @@ indexRouter.get('/cat/:category', function(req, res, next) {
   SELECT * from category; `
   mySqlConnection.query(request, [1, 2, 3], (err, rows, fields) => {
     if (err) throw err;
-
     const count = rows[1][0].count;
     const articles = [];
     const categories = [];
@@ -96,6 +95,5 @@ indexRouter.get('/cat/:category', function(req, res, next) {
       categories.push(element);
     }
     res.render('index', { title: 'LibExpress', subTitle: 'Listes Articles', rows: articles, page: page , previousPage: previousPage , nextPage: nextPage, count: count, limit: limit, categories: categories, id_cat: id});
-
   });
 });

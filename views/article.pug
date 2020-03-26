@@ -6,6 +6,9 @@ block content
 			div(class="col-md-12")
 				h2= subTitle
 		div(class="row")
+			div(class="col-md-12")
+				p(class="error" id="error")= error
+		div(class="row")
 			div(class="col-md-10")
 				form(action="/dashboard/article", method="POST")
 					div(class="form-group")

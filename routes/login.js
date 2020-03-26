@@ -21,7 +21,7 @@ loginRouter.get('/change', authenticated, function (req, res, next) {
   mySqlConnection.query(request, (err, rows, fields) => {
     if (err) throw err;
     if (rows.length === 0) {
-      res.status = 400;
+      res.render(204);
     } else { // Sinon
       res.render('login', { title: 'LibExpress', subTitle: 'Modification Mot de Passe', user: rows[0] });
     }
@@ -34,21 +34,22 @@ loginRouter.post('/', function (req, res, next) {
 	const { login, pwd } = req.body; //Récupération des donnees du formulaire
   if (!login || !pwd) { // Si donnees vides
     res.sendStatus(400);
+  } else{
+    // Requete SQL
+    const request = `SELECT login, password from user where login='${login}' AND id=2;`;
+    // Envoye de la Requete SQL
+    mySqlConnection.query(request, (err, rows, fields) => {
+      if (err) throw err; // Si requete est fausse
+      if (rows.length === 0) { // Si la requete ne renvoye rien
+        res.sendStatus(401);
+      } else { // Sinon
+        req.pwd = pwd;
+        req.login = login;
+        req.encodedPwd = rows[0].password;
+        next();
+      }
+    });
   }
-  // Requete SQL
-  const request = `SELECT login, password from user where login='${login}' AND id=2;`;
-  // Envoye de la Requete SQL
-  mySqlConnection.query(request, (err, rows, fields) => {
-    if (err) throw err; // Si requete est fausse
-    if (rows.length === 0) { // Si la requete ne renvoye rien
-      res.sendStatus(401);
-    } else { // Sinon
-      req.pwd = pwd;
-      req.login = login;
-      req.encodedPwd = rows[0].password;
-      next();
-    }
-	});
 }, (req,res,next)=>{
   bcrypt.compare(req.pwd,req.encodedPwd ).then( result => {
     if(result) {
@@ -69,14 +70,13 @@ loginRouter.put('/:id', authenticated, (req, res, next) => {
   const id = parseInt(req.params.id);
   const { pwd } = req.body;
 	if (!pwd) {
-		res.status = 400;
-		res.end();
-		return;
+		res.sendStatus(400);
+		
+  }else {
+    req.pwd = pwd;
+    req.id = id;
+    next();
   }
-
-  req.pwd = pwd;
-  req.id = id;
-  next();
 }, (req,res)=>{
   const pwd = req.pwd;
   const id  = req.id;

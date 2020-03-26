@@ -25,7 +25,7 @@ dashboardArticleRouter.get('/', function(req, res, next) {
   mySqlConnection.query(request, [1, 2, 3], (err, rows, fields) => {
     if (err) throw err; // Si requete est fausse
     if (rows[0].length === 0) {// Si la requete ne renvoye rien
-      res.render('404');
+      res.render('204');
     } else { // sinon
       const count = rows[1][0].count; // Constante pour vérifier si il y a des articles a afficher
       const articles = [];
@@ -45,7 +45,7 @@ dashboardArticleRouter.get('/', function(req, res, next) {
 });
 
 
-/* GET All Articles. */
+/* GET All Articles filtre */
 dashboardArticleRouter.get('/cat/:category', function(req, res, next) {
   const id = parseInt(req.params.category);
 

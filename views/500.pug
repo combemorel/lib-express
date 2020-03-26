@@ -1,0 +1,12 @@
+extends layouts/layoutDefault
+
+block content
+    main(role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4")
+      div(class="row")
+        div(class="col-md-12")
+          div(class="error-template")
+            h1 Oops!
+            h2 Erreur #{error.status}
+            div(class="error-details")
+              p= message
+              p #{error.stack}
