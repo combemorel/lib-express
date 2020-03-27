@@ -21,7 +21,7 @@ indexRouter.get('/', function(req, res, next) {
   const previousPage = page - 1;
   const request = `SELECT * from article limit ${limit} offset ${offset};
   SELECT COUNT(id) as count from article;
-  SELECT * from category; `
+  SELECT * from category; `;
   mySqlConnection.query(request, [1, 2, 3], (err, rows, fields) => {
     if (err) throw err;
     if (rows[0].length === 0) {

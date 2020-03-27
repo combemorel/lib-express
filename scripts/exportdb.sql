@@ -107,17 +107,17 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tag` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- Listage des données de la table lib_express.category : ~6 rows (environ)
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`id`, `tag`) VALUES
-	(1, 'Category%201'),
+	(1, 'Categorie%201'),
 	(2, 'Category 2'),
 	(3, 'Category 3'),
 	(4, 'Category 4'),
 	(5, 'Cat%E9gorie%205'),
-	(6, 'test%20Cat%E9gorie');
+	(7, 'Categorie%206');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
 -- Listage de la structure de la table lib_express. r_art_cat
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `r_art_cat` (
   KEY `FK_category` (`id_category`),
   CONSTRAINT `FK_article` FOREIGN KEY (`id_article`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
 
 -- Listage des données de la table lib_express.r_art_cat : ~8 rows (environ)
 /*!40000 ALTER TABLE `r_art_cat` DISABLE KEYS */;
@@ -142,8 +142,8 @@ INSERT INTO `r_art_cat` (`id`, `id_article`, `id_category`) VALUES
 	(57, 76, 4),
 	(58, 76, 5),
 	(62, 77, 2),
-	(67, 4, 3),
-	(68, 4, 5);
+	(71, 4, 3),
+	(72, 4, 5);
 /*!40000 ALTER TABLE `r_art_cat` ENABLE KEYS */;
 
 -- Listage de la structure de la table lib_express. user
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Listage des données de la table lib_express.user : ~0 rows (environ)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `login`, `password`) VALUES
-	(2, 'admin', '$2b$10$l3Isabo.Pyo6KAibY2nHN.2I3FGwfbHv70/xiZ/5UfGeYIIXldsnG');
+	(2, 'admin', '$2b$10$MCfnIENBOAxzk0aYhpcSI..yJk1QN4YYqbnK.8pCJIAMzVf1141TS');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
